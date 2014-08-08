@@ -193,6 +193,7 @@ class FTP implements Backend {
 		if(!ftp_mkdir($this->conn, $dirName)) {
 			throw new \Exception("Could not create directory '$dirName'");
 		}
+		return true;
 	}
 	
 	/**
@@ -202,6 +203,7 @@ class FTP implements Backend {
 		if(!ftp_rmdir($this->conn, $dirName)) {
 			throw new \Exception("Could not remove directory '$dirName'");
 		}
+		return true;
 	}
 	
 	/**

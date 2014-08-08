@@ -196,22 +196,22 @@ class Ssh2 implements Backend {
 	 * Create a directory in remote server
 	 */
 	public function mkdir($dirName) {
-		
 		$dir = $this->dir . '/' . $dirName;
 		if(!ssh2_sftp_mkdir($this->_getSftp(), $dir)) {
 			throw new \Exception("Could not create directory '$dir'");
 		}
+		return true;
 	}
 	
 	/**
 	 * Remove a directory from remote server
 	 */
-	public function rmdir($dirName) {
-		
+	public function rmdir($dirName) {		
 		$dir = $this->dir . '/' . $dirName;
 		if(!ssh2_sftp_rmdir($this->_getSftp(), $dir)) {
 			throw new \Exception("Could not remove directory '$dir'");
 		}
+		return true;
 	}
 	
 	/**
