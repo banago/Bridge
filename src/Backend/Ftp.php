@@ -29,13 +29,13 @@ class FTP implements Backend {
 			if(isset($data['port']) && $data['port']) {
 				$this->conn = ftp_ssl_connect($data['host'], $data['port']);
 				if(!$this->conn) {
-					throw new \Bridge\Exception("Could not connect to 'ftps://{$data['host']}:{$data['port']}'");
+					throw new \Exception("Could not connect to 'ftps://{$data['host']}:{$data['port']}'");
 				}
 			}
 			else {
 				$this->conn = ftp_ssl_connect($data['host']);
 				if(!$this->conn) {
-					throw new \Bridge\Exception("Could not connect to 'ftps://{$data['host']}'");
+					throw new \Exception("Could not connect to 'ftps://{$data['host']}'");
 				}
 			}
 		}
@@ -43,13 +43,13 @@ class FTP implements Backend {
 			if(isset($data['port']) && $data['port']) {
 				$this->conn = ftp_connect($data['host'], $data['port']);
 				if(!$this->conn) {
-					throw new \Bridge\Exception("Could not connect to 'ftp://{$data['host']}:{$data['port']}'");
+					throw new \Exception("Could not connect to 'ftp://{$data['host']}:{$data['port']}'");
 				}
 			}
 			else {
 				$this->conn = ftp_connect($data['host']);
 				if(!$this->conn) {
-					throw new \Bridge\Exception("Could not connect to 'ftp://{$data['host']}'");
+					throw new \Exception("Could not connect to 'ftp://{$data['host']}'");
 				}
 			}
 		}
@@ -68,7 +68,7 @@ class FTP implements Backend {
 			$pass = '';
 		}
 		if(!ftp_login($this->conn, $user, $pass)) {
-			throw new \Bridge\Exception("Could not login to '{$data['host']}' as '$user'");
+			throw new \Exception("Could not login to '{$data['host']}' as '$user'");
 		}
 		
 		//Use firewall friendly passive mode
@@ -98,7 +98,7 @@ class FTP implements Backend {
 	 */
 	public function cd($directory) {
 		if(!ftp_chdir($this->conn, $directory)) {
-			throw new \Bridge\Exception("Changing directory to '$directory' failed");
+			throw new \Exception("Changing directory to '$directory' failed");
 		}
 		return true;
 	}
@@ -108,7 +108,7 @@ class FTP implements Backend {
 	 */
 	public function pwd() {
 		if(!$pwd = ftp_pwd($this->conn)) {
-			throw new \Bridge\Exception("Printing working directory failed");
+			throw new \Exception("Printing working directory failed");
 		}
 		return $pwd;
 	}
@@ -119,7 +119,7 @@ class FTP implements Backend {
 	public function get($remoteFile) {
 		$file = tmpfile();
 		if(!ftp_fget($this->conn, $file, $remoteFile, \FTP_BINARY)) {
-			throw new \Bridge\Exception("Could not download file '$remoteFile'");
+			throw new \Exception("Could not download file '$remoteFile'");
 		}
 		$data = '';
 		fseek($file, 0);
@@ -138,7 +138,7 @@ class FTP implements Backend {
 		fwrite($file,$data);
 		fseek($file,0);
 		if(!ftp_fput($this->conn, $remoteFile, $file, \FTP_BINARY)) {
-			throw new \Bridge\Exception("Could not upload file '$remoteFile'");
+			throw new \Exception("Could not upload file '$remoteFile'");
 		}
 		fclose($file);
 		
@@ -152,7 +152,7 @@ class FTP implements Backend {
 	public function ls() {
 		$dir = ftp_nlist($this->conn, '.');
 		if($dir === false) {
-			throw new \Bridge\Exception("Listing directory failed");
+			throw new \Exception("Listing directory failed");
 		}
 		return $dir;
 	}
@@ -173,7 +173,7 @@ class FTP implements Backend {
 	 */
 	public function rm($remoteFile) {
 		if(!ftp_delete($this->conn, $remoteFile)) {
-			throw new \Bridge\Exception("Could not remove file '$remoteFile'");
+			throw new \Exception("Could not remove file '$remoteFile'");
 		}
 	}
 	
@@ -182,7 +182,7 @@ class FTP implements Backend {
 	 */
 	public function mv($remoteFile, $newName) {
 		if(!ftp_rename($this->conn, $remoteFile, $newName)) {
-			throw new \Bridge\Exception("Could not rename file '$remoteFile' as '$newName'");
+			throw new \Exception("Could not rename file '$remoteFile' as '$newName'");
 		}
 	}
 	
@@ -191,7 +191,7 @@ class FTP implements Backend {
 	 */
 	public function mkdir($dirName) {
 		if(!ftp_mkdir($this->conn, $dirName)) {
-			throw new \Bridge\Exception("Could not create directory '$dirName'");
+			throw new \Exception("Could not create directory '$dirName'");
 		}
 	}
 	
@@ -200,7 +200,7 @@ class FTP implements Backend {
 	 */
 	public function rmdir($dirName) {
 		if(!ftp_rmdir($this->conn, $dirName)) {
-			throw new \Bridge\Exception("Could not remove directory '$dirName'");
+			throw new \Exception("Could not remove directory '$dirName'");
 		}
 	}
 	

@@ -51,14 +51,14 @@ class Ssh2 implements Backend {
 			$this->ssh = ssh2_connect($host);
 		}
 		if($this->ssh === false) {
-			throw new \Bridge\Exception("Could not connect to '$host'");
+			throw new \Exception("Could not connect to '$host'");
 		}
 		
 		//Check server fingerprint (if defined)
 		if($fingerprint) {
 			$serverFingerprint = $this->getFingerprint();
 			if($fingerprint != $serverFingerprint) {
-				throw new \Bridge\Exception("Server fingerprint '$serverFingerprint' does not match!");
+				throw new \Exception("Server fingerprint '$serverFingerprint' does not match!");
 			}
 		}
 		
@@ -71,14 +71,14 @@ class Ssh2 implements Backend {
 				$status = ssh2_auth_pubkey_file($this->ssh, $pubkey['user'], $pubkey['pubkeyfile'], $pubkey['privkeyfile']);
 			}
 			if(!$status) {
-				throw new \Bridge\Exception("Could not login to '$host' as '{$pubkey['user']}' using public key authentication");
+				throw new \Exception("Could not login to '$host' as '{$pubkey['user']}' using public key authentication");
 			}
 		}
 		else if(isset($parsedUrl['user']) && $parsedUrl['user']) { //Using login & password
 			$user = urldecode($parsedUrl['user']);
 			$pass = urldecode($parsedUrl['pass']);
 			if(!ssh2_auth_password($this->ssh, $user, $pass)) {
-				throw new \Bridge\Exception("Could not login to '$host' as '$user'");
+				throw new \Exception("Could not login to '$host' as '$user'");
 			}
 		}
 		
@@ -120,7 +120,7 @@ class Ssh2 implements Backend {
 		$data = file_get_contents('ssh2.sftp://' . $this->_getSftp() . $file);
 		
 		if($data === false) {
-			throw new \Bridge\Exception("Could not download file '$file'");
+			throw new \Exception("Could not download file '$file'");
 		}
 		
 		return $data;
@@ -133,7 +133,7 @@ class Ssh2 implements Backend {
 		
 		$file = $this->_getFilename($remoteFile);
 		if(file_put_contents('ssh2.sftp://' . $this->_getSftp() . $file, $data) === false) {
-			throw new \Bridge\Exception("Could not upload file '$file'");
+			throw new \Exception("Could not upload file '$file'");
 		}
 		
 		return true;
@@ -146,7 +146,7 @@ class Ssh2 implements Backend {
 		
 		$handle = opendir('ssh2.sftp://' . $this->_getSftp() . '/' . $this->dir);
 		if(!$handle) {
-			throw new \Bridge\Exception("Listing directory '{$this->dir}' failed");
+			throw new \Exception("Listing directory '{$this->dir}' failed");
 		}
 		while(false !== ($file = readdir($handle))) {
 			if($file != '.' && $file != '..') {
@@ -176,7 +176,7 @@ class Ssh2 implements Backend {
 		
 		$file = $this->_getFilename($remoteFile);
 		if(!ssh2_sftp_unlink($this->_getSftp(), $file)) {
-			throw new \Bridge\Exception("Could not remove file '$file'");
+			throw new \Exception("Could not remove file '$file'");
 		}
 	}
 		
@@ -188,7 +188,7 @@ class Ssh2 implements Backend {
 		$from = $this->_getFilename($remoteFile);
 		$to = $this->_getFilename($newName);
 		if(!ssh2_sftp_rename($this->_getSftp(), $from, $to)) {
-			throw new \Bridge\Exception("Could not rename file '$from' as '$to'");
+			throw new \Exception("Could not rename file '$from' as '$to'");
 		}
 	}
 	
@@ -199,7 +199,7 @@ class Ssh2 implements Backend {
 		
 		$dir = $this->dir . '/' . $dirName;
 		if(!ssh2_sftp_mkdir($this->_getSftp(), $dir)) {
-			throw new \Bridge\Exception("Could not create directory '$dir'");
+			throw new \Exception("Could not create directory '$dir'");
 		}
 	}
 	
@@ -210,7 +210,7 @@ class Ssh2 implements Backend {
 		
 		$dir = $this->dir . '/' . $dirName;
 		if(!ssh2_sftp_rmdir($this->_getSftp(), $dir)) {
-			throw new \Bridge\Exception("Could not remove directory '$dir'");
+			throw new \Exception("Could not remove directory '$dir'");
 		}
 	}
 	
@@ -232,7 +232,7 @@ class Ssh2 implements Backend {
 		if(!$this->sftp) {
 			$this->sftp = ssh2_sftp($this->ssh);
 			if($this->sftp === false) {
-				throw new \Bridge\Exception("Could not initialize SFTP subsystem");
+				throw new \Exception("Could not initialize SFTP subsystem");
 			}
 		}
 		return $this->sftp;

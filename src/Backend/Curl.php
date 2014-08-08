@@ -32,7 +32,7 @@ class Curl implements Backend {
 		
 		$this->conn = curl_init($url);
 		if($this->conn === false) {
-			throw new \Bridge\Exception("Could not connect to '$host': " . curl_error($this->conn));
+			throw new \Exception("Could not connect to '$host': " . curl_error($this->conn));
 		}
 		
 		if(isset($this->parsedUrl['user']) && $this->parsedUrl['user']) {
@@ -45,7 +45,7 @@ class Curl implements Backend {
 				$login = $user;
 			}
 			if(!curl_setopt($this->conn, \CURLOPT_USERPWD, $login)) {
-				throw new \Bridge\Exception("Login to '$host' as '$user' failed");
+				throw new \Exception("Login to '$host' as '$user' failed");
 			}
 		}
 		
@@ -87,7 +87,7 @@ class Curl implements Backend {
 	 * Change directory
 	 */
 	public function cd($directory) {
-		throw new \Bridge\Exception("Unable to change directory with cURL backend");
+		throw new \Exception("Unable to change directory with cURL backend");
 		return true;
 	}
 
@@ -95,7 +95,7 @@ class Curl implements Backend {
 	 * Print working directory
 	 */
 	public function pwd() {
-		throw new \Bridge\Exception("Unable to print working directory");
+		throw new \Exception("Unable to print working directory");
 		return true;
 	}
 
@@ -114,7 +114,7 @@ class Curl implements Backend {
 		
 		$data = curl_exec($this->conn);
 		if($data === false) {
-			throw new \Bridge\Exception("Could not download file '$remoteFile: " . curl_error($this->conn));
+			throw new \Exception("Could not download file '$remoteFile: " . curl_error($this->conn));
 		}
 		
 		//Change back to the default url
@@ -142,7 +142,7 @@ class Curl implements Backend {
 		curl_setopt($this->conn, \CURLOPT_URL, $url);
 		//curl_setopt($this->conn, CURLOPT_INFILESIZE, filesize($fileName));
 		if(curl_exec($this->conn) === false) {
-			throw new \Bridge\Exception("Could not upload file '$remoteFile: " . curl_error($this->conn));
+			throw new \Exception("Could not upload file '$remoteFile: " . curl_error($this->conn));
 		}
 		
 		fclose($fp);
@@ -153,42 +153,42 @@ class Curl implements Backend {
 	 * List current directory
 	 */
 	public function ls() {
-		throw new \Bridge\Exception("Unable to list files using cURL backend");
+		throw new \Exception("Unable to list files using cURL backend");
 	}
 
 	/**
 	 * File or directory exists
 	 */
 	public function exists($path) {
-		throw new \Bridge\Exception("Unable to check");
+		throw new \Exception("Unable to check");
     }	
 
 	/**
 	 * Delete a file from remote server
 	 */
 	public function rm($remoteFile) {
-		throw new \Bridge\Exception("Unable to remove files using cURL backend");
+		throw new \Exception("Unable to remove files using cURL backend");
 	}
 	
 	/**
 	 * Rename file in remote server
 	 */
 	public function mv($remoteFile, $newName) {
-		throw new \Bridge\Exception("Unable to rename files using cURL backend");
+		throw new \Exception("Unable to rename files using cURL backend");
 	}
 	
 	/**
 	 * Create a directory in remote server
 	 */
 	public function mkdir($dirName) {
-		throw new \Bridge\Exception("Unable to create directories using cURL backend");
+		throw new \Exception("Unable to create directories using cURL backend");
 	}
 	
 	/**
 	 * Remove a directory from remote server
 	 */
 	public function rmdir($dirName) {
-		throw new \Bridge\Exception("Unable to remove directories using cURL backend");
+		throw new \Exception("Unable to remove directories using cURL backend");
 	}
 	
 	/**
