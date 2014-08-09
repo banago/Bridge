@@ -1,10 +1,9 @@
-Bridge
-==============
+# Bridge
 
-A PHP class to transfer data using different protocols (sftp, ftp, http, etc). Utilizes PHPs ssh2, ftp and curl functions if available.
+Brige is a common interface to comuncate with a server through FTP and sFTP. Utilizes PHPs ssh2, ftp and curl functions if available.
 
-Example
--------
+## Example
+
 ```php
 <?php
 require __DIR__.'/vendor/autoload.php';
@@ -18,6 +17,6 @@ print_r($conn->ls());
 echo $conn->get('README');
 ```
 
-License
--------
+## License
+
 LGPL v3

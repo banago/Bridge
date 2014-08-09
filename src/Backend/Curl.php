@@ -160,7 +160,7 @@ class Curl implements Backend {
 	 * File or directory exists
 	 */
 	public function exists($path) {
-		throw new \Exception("Unable to check");
+		throw new \Exception("Unable to check if file/folder exists using cURL backend");
     }	
 
 	/**
