@@ -20,9 +20,10 @@ class Bridge {
 	
 	public function __construct($url, array $options = null) {
 		
-		$urlParts = parse_url($url);
+		$urlParts = is_array($url) ? $url : parse_url($url);
+		
 		if(!isset($urlParts['scheme'])) {
-			throw new Exception('Scheme not defined');
+			throw new \Exception('Scheme not defined');
 		}
 		
 		$scheme = strtolower($urlParts['scheme']);
@@ -40,7 +41,7 @@ class Bridge {
 			$this->backend = new Curl($url, $options);
 		}
 		else {
-			throw new Exception("Unsupported protocol '{$urlParts['scheme']}'");
+			throw new \Exception("Unsupported protocol '{$urlParts['scheme']}'");
 		}
 	}
 	
