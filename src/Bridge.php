@@ -20,7 +20,7 @@ class Bridge {
 	
 	public function __construct($url, array $options = null) {
 		
-		$urlParts = is_array($url) ? $url : parse_url($url);
+		$urlParts = parse_url($url);
 		
 		if(!isset($urlParts['scheme'])) {
 			throw new \Exception('Scheme not defined');
