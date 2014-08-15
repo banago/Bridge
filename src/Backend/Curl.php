@@ -153,42 +153,42 @@ class Curl implements Backend {
 	 * List current directory
 	 */
 	public function ls() {
-		throw new \Exception("Unable to list files using cURL backend");
+		throw new \Exception("Unable to list files using cURL backend. This functionality has not yet been implemented.");
 	}
 
 	/**
 	 * File or directory exists
 	 */
 	public function exists($path) {
-		throw new \Exception("Unable to check if file/folder exists using cURL backend");
+		throw new \Exception("Unable to check if file/folder exists using cURL backend. This functionality has not yet been implemented.");
     }	
 
 	/**
 	 * Delete a file from remote server
 	 */
 	public function rm($remoteFile) {
-		throw new \Exception("Unable to remove files using cURL backend");
+		throw new \Exception("Unable to remove files using cURL backend. This functionality has not yet been implemented.");
 	}
 	
 	/**
 	 * Rename file in remote server
 	 */
 	public function mv($remoteFile, $newName) {
-		throw new \Exception("Unable to rename files using cURL backend");
+		throw new \Exception("Unable to rename files using cURL backend. This functionality has not yet been implemented.");
 	}
 	
 	/**
 	 * Create a directory in remote server
 	 */
 	public function mkdir($dirName) {
-		throw new \Exception("Unable to create directories using cURL backend");
+		throw new \Exception("Unable to create directories using cURL backend. This functionality has not yet been implemented.");
 	}
 	
 	/**
 	 * Remove a directory from remote server
 	 */
 	public function rmdir($dirName) {
-		throw new \Exception("Unable to remove directories using cURL backend");
+		throw new \Exception("Unable to remove directories using cURL backend. This functionality has not yet been implemented.");
 	}
 	
 	/**
