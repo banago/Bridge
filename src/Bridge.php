@@ -23,7 +23,7 @@ class Bridge {
 		$urlParts = parse_url($url);
 		
 		if(!isset($urlParts['scheme'])) {
-			throw new \Exception('Scheme not defined');
+			throw new \Exception('Scheme not defined in '.$url);
 		}
 		
 		$scheme = strtolower($urlParts['scheme']);
