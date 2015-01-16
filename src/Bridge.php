@@ -30,7 +30,11 @@ class Bridge {
 		
 		//Primary option, try to use ssh2 functions as backend
 		if(in_array($scheme, Ssh2::getAvailableProtocols())) {
-			$this->backend = new Ssh2($url, $options);
+			if(Ssh2::isSupported()) {
+				$this->backend = new Ssh2($url, $options);
+			} else {
+				throw new \Exception("ssh2 PECL extension is not installed. Please install it to use ssh.");
+			}
 		}
 		//Secondary option, try to use ftp functions as backend
 		else if(in_array($scheme, Ftp::getAvailableProtocols())) {
