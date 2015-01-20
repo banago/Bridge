@@ -218,11 +218,18 @@ class Ssh2 implements Backend {
 	 * Return array of supported protocols
 	 */
 	public static function getAvailableProtocols() {
-		$protocols = array();
-		if(function_exists('ssh2_connect')) {
-			$protocols = array('ssh','scp','sftp');
+		return array('ssh','scp','sftp');
+	}
+
+	/**
+	 * Check if ssh2 extension is installed
+	 */
+	public static function isSupported() {
+		if(!function_exists('ssh2_connect')) {
+			return false;
 		}
-		return $protocols;
+
+		return true;
 	}
 	
 	/**
