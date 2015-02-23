@@ -6,11 +6,13 @@ Brige is a common interface to comuncate with a server through FTP and SFTP. SFT
 
 The recommended way to install Bridge is through Composer.
 
+```json
 {
     "require": {
         "banago/bridge": "dev-master",
     }
 }
+```
 
 ## Example
 
