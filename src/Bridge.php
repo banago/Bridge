@@ -4,6 +4,8 @@
  * 
  * @author Tuomas Angervuori <tuomas.angervuori@gmail.com>
  * @author Baki Goxhaj <banago@gmail.com>
+ * @link http://wplancer.com
+ * @version 1.0.9
  * @license http://opensource.org/licenses/LGPL-3.0 LGPL v3
  */
  

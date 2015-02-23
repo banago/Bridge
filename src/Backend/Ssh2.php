@@ -101,7 +101,11 @@ class Ssh2 implements Backend {
 	 * Change directory
 	 */
 	public function cd($directory) {
-		return $this->dir = $directory;
+	    if( $directory[0] === '/' ) {
+    		return $this->dir = $directory;
+        } else {
+    		return $this->dir = $this->dir . '/' .  $directory;
+        }
 	}
 
 	/**
@@ -149,12 +153,14 @@ class Ssh2 implements Backend {
 		if(!$handle) {
 			throw new \Exception("Listing directory '{$this->dir}' failed");
 		}
+		$dir = array();
 		while(false !== ($file = readdir($handle))) {
 			if($file != '.' && $file != '..') {
 				$dir[] = $file;
 			}
 		}
 		closedir($handle);
+		
 		sort($dir);
 		
 		return $dir;

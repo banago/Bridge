@@ -151,9 +151,16 @@ class FTP implements Backend {
 	 */
 	public function ls() {
 		$dir = ftp_nlist($this->conn, '.');
-		if($dir === false) {
+		
+		if($dir === false ) {
 			throw new \Exception("Listing directory failed");
 		}
+		
+        // FTP will list itself and the  parent.
+        // Let's make sure we skip those.            
+        if(($key = array_search('.', $dir)) !== false) unset($dir[$key]);
+        if(($key = array_search('..', $dir)) !== false) unset($dir[$key]);		
+		
 		return $dir;
 	}
 
