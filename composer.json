@@ -6,7 +6,9 @@
     "authors": [
         {
             "name": "Baki Goxhaj",
-            "email": "banago@gmail.com"
+            "email": "banago@gmail.com",
+            "homepage": "http://wplancer.com",
+            "role": "Developer"
         }
     ],
     "require": {},

@@ -100,12 +100,17 @@ class Ssh2 implements Backend {
 	/**
 	 * Change directory
 	 */
-	public function cd($directory) {
+	public function cd($directory) {    
 	    if( $directory[0] === '/' ) {
-    		return $this->dir = $directory;
+    		$this->dir = $directory;
         } else {
-    		return $this->dir = $this->dir . '/' .  $directory;
+    		$this->dir = $this->dir . '/' .  $directory;
         }
+
+   		if(! @is_dir('ssh2.sftp://' . $this->_getSftp() . $this->dir)) {
+			return false;
+		}
+		return true;
 	}
 
 	/**

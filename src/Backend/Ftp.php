@@ -97,8 +97,8 @@ class FTP implements Backend {
 	 * Change directory
 	 */
 	public function cd($directory) {
-		if(!ftp_chdir($this->conn, $directory)) {
-			throw new \Exception("Changing directory to '$directory' failed");
+		if(! @ftp_chdir($this->conn, $directory)) {
+			return false;
 		}
 		return true;
 	}
