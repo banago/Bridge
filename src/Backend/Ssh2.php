@@ -42,7 +42,7 @@ class Ssh2 implements Backend {
 		}
 		
 		//Initialize connection
-		$host = urldecode($parsedUrl['host']);
+		$host = $parsedUrl['host'];
 		if(isset($parsedUrl['port']) && $parsedUrl['port']) {
 			//Port should be an integer
 			$port = (int) $parsedUrl['port'];
@@ -76,8 +76,8 @@ class Ssh2 implements Backend {
 			}
 		}
 		else if(isset($parsedUrl['user']) && $parsedUrl['user']) { //Using login & password
-			$user = urldecode($parsedUrl['user']);
-			$pass = urldecode($parsedUrl['pass']);
+			$user = $parsedUrl['user'];
+			$pass = $parsedUrl['pass'];
 			if(!ssh2_auth_password($this->ssh, $user, $pass)) {
 				throw new \Exception("Could not login to '$host' as '$user'");
 			}
@@ -85,7 +85,9 @@ class Ssh2 implements Backend {
 		
 		//Set default directory
 		if(isset($parsedUrl['path']) && $parsedUrl['path']) {
-			$this->cd(urldecode($parsedUrl['path']));
+			if(!$this->cd(urldecode($parsedUrl['path']))) {
+                throw new \Exception("Could not change directory to '{$data['path']}'. Please make sure the directory exists.");            
+            }
 		}
 	}
 	

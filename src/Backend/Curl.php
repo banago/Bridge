@@ -36,9 +36,9 @@ class Curl implements Backend {
 		}
 		
 		if(isset($this->parsedUrl['user']) && $this->parsedUrl['user']) {
-			$user = urldecode($this->parsedUrl['user']);
+			$user = $this->parsedUrl['user'];
 			if($this->parsedUrl['pass']) {
-				$pass = urldecode($this->parsedUrl['pass']);
+				$pass = $this->parsedUrl['pass'];
 				$login = "$user:$pass";
 			}
 			else {

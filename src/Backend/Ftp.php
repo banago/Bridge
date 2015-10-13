@@ -56,13 +56,13 @@ class FTP implements Backend {
 		
 		//Provide username and password
 		if(isset($data['user'])) {
-			$user = urldecode($data['user']);
+			$user = $data['user'];
 		}
 		else {
 			$user = 'anonymous';
 		}
 		if(isset($data['pass'])) {
-			$pass = urldecode($data['pass']);
+			$pass = $data['pass'];
 		}
 		else {
 			$pass = '';
@@ -80,7 +80,9 @@ class FTP implements Backend {
 		if(isset($data['path']) && $data['path']) {
 		    // Make sure the $path ends with a slash.
             $data['path'] = rtrim($data['path'], '/').'/';
-            $this->cd($data['path']);
+            if(!$this->cd(urldecode($data['path']))){
+                throw new \Exception("Could not change directory to '{$data['path']}'. Please make sure the directory exists.");            
+            }
 		}
 	}
 	
