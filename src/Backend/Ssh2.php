@@ -227,6 +227,19 @@ class Ssh2 implements Backend {
 		}
 		return true;
 	}
+
+	/**
+	 * Chmod file
+	 */
+	public function chmod($remoteFile, $mode) {
+		$mode = octdec ( str_pad ( $mode, 4, '0', STR_PAD_LEFT ) );
+		$remoteFile = $this->_getFilename($remoteFile);
+		if(@ssh2_sftp_chmod($this->_getSftp(), $remoteFile, $mode) === true) {
+			return true;
+		} else {
+			throw new \Exception("Could not chmod file '$remoteFile'");
+		}
+	}
 	
 	/**
 	 * Return array of supported protocols

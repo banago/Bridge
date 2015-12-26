@@ -121,6 +121,13 @@ class Bridge {
 	public function rmdir($dirName) {
 		return $this->backend->rmdir($dirName);
 	}
+
+	/**
+	 * Chmod file in remote server
+	 */
+	public function chmod($remoteFile, $mode) {
+		return $this->backend->chmod($remoteFile, $mode);
+	}
 	
 	/**
 	 * Return array of supported protocols

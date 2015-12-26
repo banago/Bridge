@@ -216,6 +216,18 @@ class FTP implements Backend {
 	}
 	
 	/**
+	 * Chmod file
+	 */
+	public function chmod($remoteFile, $mode) {
+		$mode = octdec ( str_pad ( $mode, 4, '0', STR_PAD_LEFT ) );
+		if(@ftp_chmod($this->conn, $mode, $remoteFile) !== false) {
+			return true;
+		} else {
+			throw new \Exception("Could not chmod file '$remoteFile'");
+		}
+	}
+
+	/**
 	 * Return array of supported protocols
 	 */
 	public static function getAvailableProtocols() {

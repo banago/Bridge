@@ -190,6 +190,13 @@ class Curl implements Backend {
 	public function rmdir($dirName) {
 		throw new \Exception("Unable to remove directories using cURL backend. This functionality has not yet been implemented.");
 	}
+
+	/**
+	 * Chmod file
+	 */
+	public function chmod($remoteFile, $mode) {
+		throw new \Exception("Unable to chmod file using cURL backend. This functionality has not yet been implemented.");
+	}
 	
 	/**
 	 * Return array of supported protocols

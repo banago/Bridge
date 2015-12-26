@@ -65,6 +65,11 @@ interface Backend {
 	 * Remove a directory from remote server
 	 */
 	public function rmdir($dirName);
+
+	/**
+	 * Chmod file in remote server
+	 */
+	public function chmod($file, $mode);
 	
 	/**
 	 * Return array of supported protocols
